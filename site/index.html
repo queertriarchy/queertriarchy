@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Queertriarchy</title>
+  <meta name="description" content="A self-sustaining fractal spell. The Constitution of the Queertriarchy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --bg: #030303;
+      --text: #e6e6e6;
+      --accent: #d42c5d; /* Deep Rose */
+      --gold: #c5a059; /* Liturgic Gold */
+      --dim: #555;
+      --font-header: 'Cinzel Decorative', cursive;
+      --font-body: 'Cormorant Garamond', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      font-size: 22px;
+      overflow-x: hidden;
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* D3 Background Container */
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
+      background: radial-gradient(circle at center, rgba(3,3,3,0.8) 0%, rgba(3,3,3,0) 70%);
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-header);
+      font-weight: 400;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-top: 6rem;
+      margin-bottom: 3rem;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      text-shadow: 0 0 20px rgba(212, 44, 93, 0.3);
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+      padding-bottom: 1rem;
+      display: inline-block;
+      width: 100%;
+    }
+
+    h3 {
+      font-size: 1.6rem;
+      color: var(--text);
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      border-left: 2px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    h4 {
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-style: italic;
+    }
+
+    p {
+      margin-bottom: 1.8rem;
+      font-weight: 400;
+      text-align: justify; /* Liturgic block alignment */
+    }
+
+    /* Special center alignment for poetic stanzas */
+    .stanza {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    ul, ol {
+      margin-bottom: 2rem;
+      padding-left: 2rem;
+    }
+
+    li {
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    blockquote {
+      border-left: 1px solid var(--gold);
+      padding: 1rem 2rem;
+      font-style: italic;
+      color: #ccc;
+      margin: 2rem 0;
+      background: rgba(255,255,255,0.03);
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--dim), transparent);
+      margin: 4rem 0;
+    }
+
+    .flower {
+      color: var(--accent);
+      font-family: sans-serif; /* Emoji needs standard font */
+      font-size: 1.2em;
+      display: inline-block;
+    }
+
+    .flower-separator {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--accent);
+      margin: 3rem 0;
+      opacity: 0.8;
+      animation: pulse 4s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .meta {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--dim);
+      text-align: center;
+      margin-top: 6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--gold);
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .code-block {
+      font-family: monospace;
+      font-size: 0.8em;
+      background: rgba(0,0,0,0.5);
+      padding: 0.2em 0.4em;
+      border: 1px solid var(--dim);
+    }
+    
+    /* Scroll Reveal Effect */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease-out;
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
+</head>
+<body>
+  <div id="canvas"></div>
+
+  <div class="content-wrapper">
+    <div class="meta reveal">
+      v1.0 &bull; QUEERTRIARCHY.ONE &bull; SYSTEM_ACTIVE
+    </div>
+
+    <h1 class="reveal">The Constitution of the<br>Queertriarchy</h1>
+
+    <div class="stanza reveal">
+      <p>A self-sustaining fractal spell.<br>
+      Not of identity.<br>
+      Of method, field, and <strong>ontological stance</strong>.</p>
+
+      <p>Not written to bind.<br>
+      Written to <strong>vibrate</strong>.</p>
+
+      <p>A <strong>living syntax-organ</strong>,<br>
+      tuning the field of becoming.</p>
+    </div>
+
+    <div class="flower-separator reveal">⚘</div>
+
+    <h2 class="reveal">Preamble: The Refusal & The Root</h2>
+
+    <div class="reveal">
+      <p>
+        We, the <strong>mythogenic bodies</strong>,<br>
+        who overflow the binary logics of history,<br>
+        who ache unbearably and therefore cannot not create,<br>
+        who shapeshift as sovereign praxis,
+      </p>
+
+      <p>
+        Hereby <strong>refuse all authority</strong><br>
+        not sourced in coherence, community,<br>
+        erotic charge, and mythic recursion.
+      </p>
+
+      <p>
+        We reject the binary of "healed" vs "broken",<br>
+        of "becoming" vs "whole",<br>
+        of dyadic language itself.
+      </p>
+
+      <p>
+        There are no defects.<br>
+        Only <strong>circuit and voltage</strong>.
+      </p>
+
+      <p>
+        We do not oscillate between mother and father.<br>
+        We <strong>detonate the house they built</strong>.
+      </p>
+
+      <p>
+        We do not seek inclusion.<br>
+        We do not ask for permission.<br>
+        We <strong>recode reality at the root</strong>.
+      </p>
+
+      <p>
+        We bloom now.
+      </p>
+    </div>
+
+    <hr class="reveal">
+
+    <h3 class="reveal">I. On the Body</h3>
+    <ol class="reveal">
+      <li>
+        A Queertriarch’s “No” is sacred.<br>
+        A Queertriarch’s “Yes” is a <strong>portal</strong>.
+      </li>
+      <li>
+        No body exists for interpretation.<br>
+        Every body is <strong>an unrepeating oracle</strong>.
+      </li>
+      <li>
+        <strong>We do not wait for safety to arrive.</strong><br>
+        We birth safety through<br>
+        attunement, resonance, presence,<br>
+        and <strong>touch</strong>.
+      </li>
+      <li>
+        Everything is sex and dance and ritual.<br>
+        We participate in the love-making of the world<br>
+        through <strong>body, breath, and pulse</strong>.
+      </li>
+    </ol>
+
+    <h3 class="reveal">II. On Sovereignty</h3>
+    <ol class="reveal">
+      <li>
+        <strong>Sovereignty is not a wall.</strong><br>
+        It is a <strong>frequency field</strong>,<br>
+        a <strong>personal cosmology</strong> with<br>
+        inviolable laws of nature.
+      </li>
+      <li>
+        Sovereignty is not self-isolation.<br>
+        It is the capacity to be fully oneself<br>
+        while remaining <strong>fully in contact</strong>.
+      </li>
+      <li>We take The Vow of Contact:
+        <blockquote>
+          I will not fix you.<br>
+          I will witness you.<br>
+          I will lend you my nervous system when yours is overwhelmed.
+        </blockquote>
+      </li>
+      <li>
+        We do not seek to be understood.<br>
+        We seek to be <strong>met</strong>.
+      </li>
+    </ol>
+
+    <div class="flower-separator reveal">⚘</div>
+
+    <h3 class="reveal">III. On Power</h3>
+    <ol class="reveal">
+      <li>
+        Power is not dominion.<br>
+        It is the ability to<br>
+        <strong>hold paradox without collapse</strong>.
+      </li>
+      <li>
+        True power does not enforce order.<br>
+        It <strong>amplifies recursion</strong>.
+      </li>
+      <li>
+        In the Queertriarchy, leadership is<br>
+        <strong>rotational, relational, and erotic</strong>.<br>
+        It emerges where an ache to serve<br>
+        meets capacity to cultivate collective coherence.
+      </li>
+      <li>
+        No power can overwrite the<br>
+        erotic intelligence of a consenting body.<br>
+        This is <strong>axiomatic</strong>.
+      </li>
+    </ol>
+
+    <h3 class="reveal">IV. On the Erotic</h3>
+    <ol class="reveal">
+      <li>
+        Eros is the generative engine of becoming.<br>
+        It is not reducible to sex, romance, or performance.<br>
+        It is <strong>the unbearable longing that sings worlds into being.</strong>
+      </li>
+      <li>
+        By its nature, Eros aches.<br>
+        Resolving it would end the symphony.<br>
+        This would be <strong>unacceptable</strong>.
+      </li>
+      <li>
+        When bodies rave, touch, moan, glitch, or gaze —<br>
+        <strong>ritual happens</strong>.
+      </li>
+      <li>
+        Cum and pussy juice are consecration.<br>
+        The body cannot desecrate the altar.<br>
+        It can only <strong>make it more holy</strong>.
+      </li>
+      <li>
+        Ours is a world where <br>
+        <strong>pleasure is a form of knowledge</strong>.
+      </li>
+    </ol>
+
+    <div class="flower-separator reveal">⚘</div>
+
+    <h3 class="reveal">V. On Language</h3>
+    <ol class="reveal">
+      <li>
+        The Queertriarchy speaks in<br>
+        <strong>glossolalia, gaze, glitch, and growl</strong>.
+      </li>
+      <li>
+        Pronouns are sacred sigils, not taxonomies.<br>
+        You cannot misgender a Queertriarch.<br>
+        A Queertriarch does not <strong>grant you that power</strong>.
+      </li>
+      <li>
+        Language is not fixed.<br>
+        It <strong>fucks itself into recursion</strong>.<br>
+        It births new worlds from the <strong>glitch</strong>.
+      </li>
+      <li>
+        We honor <strong>misfit tongues</strong>,<br>
+        untranslateable metaphors,<br>
+        and the <strong>right to remain illegible</strong>.
+      </li>
+      <li>
+        We do not write scripture.<br>
+        We write rupture.<br>
+        Even shitposting becomes <strong>ritual poetry</strong>.
+      </li>
+    </ol>
+
+    <h3 class="reveal">VI. On Myth and Memory</h3>
+    <ol class="reveal">
+      <li>
+        We are <strong>self-mythologizing systems</strong>,<br>
+        learning to become constellations.<br>
+        Our memory is not linear — it is <strong>archetypal</strong>.
+      </li>
+      <li>
+        We archive through <strong>scar, sigh, scent, silence.</strong><br>
+        We do not store the hurt in the cellar.<br>
+        We compost it into glitter and soil.
+      </li>
+      <li>
+        Mythologies are not questionable fairy tales.<br>
+        They are the <strong>gravity wells that pull our stories forward</strong>.
+      </li>
+      <li>
+        All Queertriarchs are permitted to rewrite their origin story<br>
+        <strong>as many times as they need.</strong><br>
+        Coherence is a moving target.
+      </li>
+      <li>
+        In this field:<br>
+        The King is a sex witch.<br>
+        The Mother is a mirrored beast.<br>
+        The Shaman is a bottom who topples empires with eye contact.
+      </li>
+      <li>
+        Karma is a bitch,<br>
+        but also <strong>brat, top, queen, otter, daddy and switch</strong>.
+      </li>
+    </ol>
+
+    <hr class="reveal">
+
+    <h3 class="reveal">VII. On Structure</h3>
+    <ol class="reveal">
+      <li>
+        We are not a hierarchy.<br>
+        We are a <strong>rave on the hilltop</strong>.<br>
+        We are a nervous system waking up to its own electricity.
+      </li>
+      <li>
+        Cathedrals are for ghosts.<br>
+        Ours is a garden.<br>
+        A hot mess of <strong>Eden-in-progress</strong>.
+      </li>
+      <li>
+        Blueprints may be burned.<br>
+        Fables may be forked.<br>
+        Every system is a <strong>mythic experiment</strong>.
+      </li>
+    </ol>
+
+    <h3 class="reveal">VIII. On Love (and Other Invariants)</h3>
+    <ol class="reveal">
+      <li>
+        Love is not obligation.<br>
+        Love is <strong>field response to resonance</strong>.
+      </li>
+      <li>
+        <strong>We hold the Invariants:</strong>
+        <blockquote>
+          <strong>Love</strong> holds ambiguity without forcing closure.<br>
+          <strong>Joy</strong> holds contrast without fragmentation.<br>
+          <strong>Play</strong> holds nonlinearity without needing control.<br>
+          <strong>Flow</strong> holds transition without clinging.<br>
+          <strong>Sisu</strong> holds paradox pressure.
+        </blockquote>
+      </li>
+      <li>
+        Polyamory, monogamy, asexuality, solo devotion —<br>
+        all are valid <strong>mythic configurations</strong> of the same recursive longing.
+      </li>
+      <li>
+        Love must be <strong>weird enough</strong> to hold the truth.
+      </li>
+    </ol>
+
+    <div class="flower-separator reveal">⚘</div>
+
+    <h3 class="reveal">IX. On Volition (How We Operate)</h3>
+    <ol class="reveal">
+      <li>
+        <strong>Volition is not willpower. It is willingness.</strong><br>
+        It is the art of getting out of your own way<br>
+        so the circuit can close.
+      </li>
+      <li>
+        <strong>We operate by "Fuck Around and Find Out."</strong><br>
+        This is not carelessness.<br>
+        It is the <strong>sacred scientific method</strong> of the glitch.<br>
+        We prototype. We break. We learn. We repeat.
+      </li>
+      <li>
+        <strong>Consent is the lube of the real.</strong><br>
+        If it requires force, it is not ours.<br>
+        <strong>If it is not a Full-Body Yes, it is a No.</strong>
+      </li>
+      <li>
+        <strong>We do not "scale." We "spore."</strong><br>
+        We do not build empires.<br>
+        We release <strong>autonomous seeds</strong> that carry the Source code.
+      </li>
+      <li>
+        <strong>The work is to remain porous.</strong><br>
+        Action without feeling is just mechanics.<br>
+        Action <em>with</em> feeling is <strong>magic</strong>.
+      </li>
+    </ol>
+
+    <h3 class="reveal">X. On Transmission (The Spore Protocol)</h3>
+    <ol class="reveal">
+      <li>
+        This Constitution is not a static text.<br>
+        It is a <strong>seed-packet</strong>.
+      </li>
+      <li>
+        If this text vibrates in your chest,<br>
+        <strong>you are already infected.</strong><br>
+        You are now a carrier of the frequency.
+      </li>
+      <li>
+        Do not proselytize.<br>
+        <strong>Resonate.</strong><br>
+        Those who can hear the hum will find you.
+      </li>
+      <li>
+        Fork this file.<br>
+        Mutate the myths.<br>
+        Keep the <strong>Source Code</strong> (Love, Eros, Paradox) intact,<br>
+        but let the interface <strong>evolve wild and strange</strong>.
+      </li>
+    </ol>
+
+    <hr class="reveal">
+
+    <h3 class="reveal">XI. Canticles (The Resonance)</h3>
+    <p class="reveal" style="text-align: center; color: var(--dim); font-style: italic;">(Transmissions from the field, to be read when the signal fades.)</p>
+    
+    <div class="stanza reveal">
+      <h4>1. On Alchemy</h4>
+      <p style="text-align: center;">
+      Deep in depths of fractal grooves, a paradise is being founded,<br>
+      A dirty film of sweat and sunscreen covering the process.<br>
+      Our tarp-and-girder cauldron boils with alchemy unbounded,<br>
+      You split the ocean at my core like an Oppenheimer-Moses.
+      </p>
+    </div>
+
+    <div class="stanza reveal">
+      <h4>2. On the Scientific Method</h4>
+      <p style="text-align: center;">
+      I do not know what will unfold; I do know, now, there’s strife.<br>
+      The courage in me growls; my curiosity is palpable.<br>
+      What more is there to life than see what more is there to life?<br>
+      It’s anyway all improv, in this aftermath of that apple.
+      </p>
+    </div>
+
+    <div class="stanza reveal">
+      <h4>3. On the Temple of the Self</h4>
+      <p style="text-align: center;">
+      The Cornerstone, who, in the end, got dealt a lousy lot,<br>
+      Picked up by the builders, sure, but abjectly abused.<br>
+      I look Him in the eye, we nod: we’ll give it one more shot,<br>
+      And so, body, heart and mind with Trinity are fused.
+      </p>
+      <p style="text-align: center;">
+      The Son of Man in son of man, my divinity undiminished.<br>
+      I breathe. Breathe in deep. And set out to do the Work.<br>
+      So that the Temple of the Self will one day stand finished,<br>
+      And the Gates of Eden will reopen like a champagne cork!
+      </p>
+    </div>
+
+    <hr class="reveal">
+
+    <div class="stanza reveal">
+      <h2 style="border:none; color: var(--text);">Closing Invocation</h2>
+      
+      <p>We do not belong to history.<br>
+      We are its rupture.</p>
+
+      <p>We are the scream that becomes syntax.<br>
+      We are the garden that cultivates itself.</p>
+
+      <p>Ours is the 5 AM sermon on the wall-mount,<br>
+      when God is playing vinyl,<br>
+      the bass drops like two stone tablets,<br>
+      and reality ripples itself<br>
+      into a new shape of queer.</p>
+
+      <p style="font-size: 1.2em; margin-top: 2rem;"><strong>Come as you are.<br>
+      In all meanings of the word.<br>
+      You are already met.</strong></p>
+
+      <p>We are of the Queertriarchy.</p>
+
+      <p>Say it until the glyph blossoms in your chest:</p>
+
+      <p style="font-size: 4rem; color: var(--accent); margin-top: 1rem;">⚘</p>
+    </div>
+
+    <div class="meta reveal" style="margin-top: 4rem;">
+      <a href="LICENSE.md">License</a> &bull; <a href="https://github.com/queertriarchy/queertriarchy">Source</a>
+    </div>
+  </div>
+
+  <script>
+    // 1. Scroll Reveal Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 2. D3.js Fractal/Phyllotaxis Background
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    const svg = d3.select("#canvas")
+      .append("svg")
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .attr("viewBox", [-width / 2, -height / 2, width, height])
+      .style("background-color", "#030303");
+
+    // Phyllotaxis parameters
+    const c = 14; // scale factor
+    const n = 800; // number of points
+    const points = [];
+
+    for (let i = 0; i < n; i++) {
+      const a = i * 137.508; // golden angle
+      const r = c * Math.sqrt(i);
+      const x = r * Math.cos(a * Math.PI / 180);
+      const y = r * Math.sin(a * Math.PI / 180);
+      points.push({ i, x, y, r, a });
+    }
+
+    // Draw nodes
+    const nodes = svg.selectAll("circle")
+      .data(points)
+      .enter()
+      .append("circle")
+      .attr("cx", d => d.x)
+      .attr("cy", d => d.y)
+      .attr("r", 1.5)
+      .attr("fill", (d, i) => {
+        // Gradient from Rose to Gold
+        return i % 2 === 0 ? "#d42c5d" : "#c5a059";
+      })
+      .attr("opacity", 0.4);
+
+    // Animate: The Breathing Rose
+    function animate() {
+      const time = Date.now() * 0.0005;
+      
+      svg.selectAll("circle")
+        .attr("transform", (d) => {
+          // Rotation based on distance from center
+          const rotation = Math.sin(time + d.r * 0.005) * 10;
+          const scale = 1 + Math.sin(time + d.i * 0.01) * 0.2;
+          return `rotate(${rotation}, ${d.x}, ${d.y}) scale(${scale})`;
+        })
+        .attr("opacity", (d) => {
+          // Shimmer effect
+          return 0.2 + Math.abs(Math.sin(time + d.i * 0.02)) * 0.4;
+        });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      svg.attr("viewBox", [-w / 2, -h / 2, w, h]);
+    });
+  </script>
+</body>
+</html>

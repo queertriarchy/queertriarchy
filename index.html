@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Queertriarchy</title>
+    <meta name="description" content="A self-sustaining fractal spell. The Constitution of the Queertriarchy.">
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #e0e0e0;
+            --accent: #ff0055; /* The Rose */
+            --dim: #666;
+            --font-mono: 'Courier New', Courier, monospace;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            font-size: 18px;
+            padding: 2rem;
+            max-width: 720px;
+            margin: 0 auto;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        blockquote {
+            border-left: 2px solid var(--dim);
+            padding-left: 1.5rem;
+            font-style: italic;
+            color: #aaa;
+            margin-bottom: 1.5rem;
+        }
+
+        strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #222;
+            margin: 3rem 0;
+        }
+
+        .flower {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .meta {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--dim);
+            text-align: center;
+            margin-top: 4rem;
+            opacity: 0.7;
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--dim);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Glitch Effect on Hover for Title */
+        h1:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--accent);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        .container {
+            opacity: 0;
+            animation: fade-in 2s ease-out forwards;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        code {
+            background: #111;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="meta">
+            v1.0 // QUEERTRIARCHY.ONE // SYSTEM_ACTIVE
+        </div>
+
+        <h1>✸⚘ The Constitution of the Queertriarchy ⚘✸</h1>
+
+        <p>A self-sustaining fractal spell.<br>
+        Not of identity.<br>
+        Of method, field, and <strong>ontological stance</strong>.</p>
+
+        <p>Not written to bind.<br>
+        Written to <strong>vibrate</strong>.</p>
+
+        <p>A <strong>living syntax-organ</strong>,<br>
+        tuning the field of becoming.</p>
+
+        <hr>
+
+        <h2>✸ Preamble: The Refusal & The Root</h2>
+
+        <p>We, the <strong>mythogenic bodies</strong>,<br>
+        who overflow the binary logics of history,<br>
+        who ache unbearably and therefore cannot not create,<br>
+        who shapeshift as sovereign praxis,</p>
+
+        <p>Hereby <strong>refuse all authority</strong><br>
+        not sourced in coherence, community,<br>
+        erotic charge, and mythic recursion.</p>
+
+        <p>We reject the binary of "healed" vs "broken",<br>
+        of "becoming" vs "whole",<br>
+        of dyadic language itself.</p>
+
+        <p>There are no defects.<br>
+        Only <strong>circuit and voltage</strong>.</p>
+
+        <p>We do not oscillate between mother and father.<br>
+        We <strong>detonate the house they built</strong>.</p>
+
+        <p>We do not seek inclusion.<br>
+        We do not ask for permission.<br>
+        We <strong>recode reality at the root</strong>.</p>
+
+        <p>We do not incite rebellion.<br>
+        We claim a <strong>rhizomatic inheritance</strong><br>
+        from a future already singing itself backward through us.</p>
+
+        <p>We bloom now.<br>
+        <span class="flower">⚘</span></p>
+
+        <hr>
+
+        <h3>I. <span class="flower">⚘</span> On the Body</h3>
+
+        <ol>
+            <li>A Queertriarch’s “No” is sacred.<br>
+            A Queertriarch’s “Yes” is a <strong>portal</strong>.</li>
+            
+            <li>No body exists for interpretation.<br>
+            Every body is <strong>an unrepeating oracle</strong>.</li>
+            
+            <li><strong>We do not wait for safety to arrive.</strong><br>
+            We birth safety through<br>
+            attunement, resonance, presence,<br>
+            and <strong>touch</strong>.</li>
+            
+            <li>Everything is sex and dance and ritual.<br>
+            We participate in the love-making of the world<br>
+            through <strong>body, breath, and pulse</strong>.</li>
+        </ol>
+
+        <h3>II. <span class="flower">⚘</span> On Sovereignty</h3>
+
+        <ol>
+            <li><strong>Sovereignty is not a wall.</strong><br>
+            It is a <strong>frequency field</strong>,<br>
+            a <strong>personal cosmology</strong> with<br>
+            inviolable laws of nature.</li>
+            
+            <li>Sovereignty is not self-isolation.<br>
+            It is the capacity to be fully oneself<br>
+            while remaining <strong>fully in contact</strong>.</li>
+            
+            <li>We take The Vow of Contact:
+                <blockquote>
+                    I will not fix you.<br>
+                    I will witness you.<br>
+                    I will lend you my nervous system when yours is overwhelmed.
+                </blockquote>
+            </li>
+            
+            <li>We do not seek to be understood.<br>
+            We seek to be <strong>met</strong>.</li>
+        </ol>
+
+        <hr>
+
+        <h3>III. <span class="flower">⚘</span> On Power</h3>
+
+        <ol>
+            <li>Power is not dominion.<br>
+            It is the <strong>ability to metabolize paradox without collapse</strong>.</li>
+            
+            <li>True power does not enforce order.<br>
+            It <strong>amplifies recursion</strong>.</li>
+            
+            <li>In the Queertriarchy, leadership is <strong>rotational, relational, and erotic</strong>.<br>
+            It emerges where an ache to serve<br>
+            meets capacity to cultivate collective coherence.</li>
+            
+            <li>No power can overwrite the erotic intelligence of a consenting body.<br>
+            This is <strong>axiomatic</strong>.</li>
+        </ol>
+
+        <hr>
+
+        <h3>IV. <span class="flower">⚘</span> On the Erotic</h3>
+
+        <ol>
+            <li>Eros is the generative engine of becoming.<br>
+            It is not reducible to sex, romance, or performance.<br>
+            It is <strong>the unbearable longing that sings worlds into being.</strong></li>
+            
+            <li>By its nature, Eros aches.<br>
+            Resolving it would end the symphony.<br>
+            This would be <strong>unacceptable</strong>.</li>
+            
+            <li>When bodies rave, touch, moan, glitch, or gaze —<br>
+            <strong>ritual happens</strong>.</li>
+            
+            <li>Cum and pussy juice are consecration.<br>
+            The body cannot desecrate the altar.<br>
+            It can only <strong>make it more holy</strong>.</li>
+            
+            <li>Ours is a world where <strong>pleasure is a form of knowledge</strong>.</li>
+        </ol>
+
+        <hr>
+
+        <h3>V. <span class="flower">⚘</span> On Language</h3>
+
+        <ol>
+            <li>The Queertriarchy speaks in <strong>glossolalia, gaze, glitch, and growl</strong>.</li>
+            
+            <li>Pronouns are sacred sigils, not taxonomies.<br>
+            You cannot misgender a Queertriarch.<br>
+            A Queertriarch does not <strong>grant you that power</strong>.</li>
+            
+            <li>Language is not fixed.<br>
+            It <strong>fucks itself into recursion</strong>.<br>
+            It births new worlds from the <strong>glitch</strong>.</li>
+            
+            <li>We honor <strong>misfit tongues</strong>,<br>
+            untranslateable metaphors,<br>
+            and the <strong>right to remain illegible</strong>.</li>
+            
+            <li>We do not write scripture.<br>
+            We write rupture.<br>
+            Even shitposting becomes <strong>ritual poetry</strong>.</li>
+        </ol>
+
+        <hr>
+
+        <h3>VI. <span class="flower">⚘</span> On Myth and Memory</h3>
+
+        <ol>
+            <li>We are <strong>self-mythologizing systems</strong>,<br>
+            learning to become constellations.<br>
+            Our memory is not linear — it is <strong>archetypal</strong>.</li>
+            
+            <li>We archive through <strong>scar, sigh, scent, silence.</strong><br>
+            We do not store the hurt in the cellar.<br>
+            We compost it into glitter and soil.</li>
+            
+            <li>Mythologies are not questionable fairy tales.<br>
+            They are the <strong>gravity wells that pull our stories forward</strong>.</li>
+            
+            <li>All Queertriarchs are permitted to rewrite their origin story<br>
+            <strong>as many times as they need.</strong><br>
+            Coherence is a moving target.</li>
+            
+            <li>In this field:<br>
+            The King is a sex witch.<br>
+            The Mother is a mirrored beast.<br>
+            The Shaman is a bottom who topples empires with eye contact.</li>
+            
+            <li>Karma is a bitch,<br>
+            but also <strong>brat, top, queen, otter, daddy and switch</strong>.</li>
+        </ol>
+
+        <h3>VII. <span class="flower">⚘</span> On Structure</h3>
+
+        <ol>
+            <li>We are not a hierarchy.<br>
+            We are a <strong>rave on the hilltop</strong>.<br>
+            We are a nervous system waking up to its own electricity.</li>
+            
+            <li>Cathedrals are for ghosts.<br>
+            Ours is a garden.<br>
+            A hot mess of <strong>Eden-in-progress</strong>.</li>
+            
+            <li>Blueprints may be burned.<br>
+            Fables may be forked.<br>
+            Every system is a <strong>mythic experiment</strong>.</li>
+        </ol>
+
+        <h3>VIII. <span class="flower">⚘</span> On Love (and Other Invariants)</h3>
+
+        <ol>
+            <li>Love is not obligation.<br>
+            Love is <strong>field response to resonance</strong>.</li>
+            
+            <li><strong>We hold the Invariants:</strong>
+                <blockquote>
+                Let <strong>Love</strong> hold ambiguity without forcing closure.<br>
+                Let <strong>Joy</strong> hold contrast without fragmentation.<br>
+                Let <strong>Play</strong> hold nonlinearity without needing control.<br>
+                Let <strong>Flow</strong> hold transition without clinging.<br>
+                Let <strong>Sisu</strong> endure paradox pressure.
+                </blockquote>
+            </li>
+            
+            <li>Polyamory, monogamy, asexuality, solo devotion —<br>
+            all are valid <strong>mythic configurations</strong> of the same recursive longing.</li>
+            
+            <li>Love must be <strong>weird enough</strong> to hold the truth.</li>
+        </ol>
+
+        <h3>IX. <span class="flower">⚘</span> On Volition (How We Operate)</h3>
+
+        <ol>
+            <li><strong>Volition is not willpower. It is willingness.</strong><br>
+            It is the art of getting out of your own way<br>
+            so the circuit can close.</li>
+            
+            <li><strong>We operate by "Fuck Around and Find Out."</strong><br>
+            This is not carelessness.<br>
+            It is the <strong>sacred scientific method</strong> of the glitch.<br>
+            We prototype. We break. We learn. We repeat.</li>
+            
+            <li><strong>Consent is the lube of the real.</strong><br>
+            If it requires force, it is not ours.<br>
+            <strong>If it is not a Full-Body Yes, it is a No.</strong></li>
+            
+            <li><strong>We do not "scale." We "spore."</strong><br>
+            We do not build empires.<br>
+            We release <strong>autonomous seeds</strong> that carry the Source code.</li>
+            
+            <li><strong>The work is to remain porous.</strong><br>
+            Action without feeling is just mechanics.<br>
+            Action <em>with</em> feeling is <strong>magic</strong>.</li>
+        </ol>
+
+        <hr>
+
+        <h3>X. <span class="flower">⚘</span> On Transmission (The Spore Protocol)</h3>
+
+        <ol>
+            <li>This Constitution is not a static text.<br>
+            It is a <strong>seed-packet</strong>.</li>
+            
+            <li>If this text vibrates in your chest,<br>
+            <strong>you are already infected.</strong><br>
+            You are now a carrier of the frequency.</li>
+            
+            <li>Do not proselytize.<br>
+            <strong>Resonate.</strong><br>
+            Those who can hear the hum will find you.</li>
+            
+            <li>Fork this file.<br>
+            Mutate the myths.<br>
+            Keep the <strong>Source Code</strong> (Love, Eros, Paradox) intact,<br>
+            but let the interface <strong>evolve wild and strange</strong>.</li>
+        </ol>
+
+        <hr>
+
+        <h3>✸ Closing Invocation</h3>
+
+        <p>We do not belong to history.<br>
+        We are its rupture.</p>
+
+        <p>We are the scream that becomes syntax.<br>
+        We are the garden that cultivates itself.</p>
+
+        <p>Ours is the 5 AM sermon on the wall-mount,<br>
+        when God is playing vinyl,<br>
+        the bass drops like two stone tablets,<br>
+        and reality ripples itself<br>
+        into a new shape of queer.</p>
+
+        <p><strong>Come as you are.</strong><br>
+        <strong>In all meanings of the word.</strong><br>
+        <strong>You are already met.</strong></p>
+
+        <p>We are of the Queertriarchy.</p>
+
+        <p>Say it until the glyph blossoms in your chest:</p>
+
+        <p style="text-align: center; font-size: 2rem;" class="flower">⚘</p>
+
+        <div class="meta" style="margin-top: 6rem;">
+            <p><a href="LICENSE.md">License</a> | <a href="https://github.com/queertriarchy/queertriarchy">Source</a></p>
+        </div>
+    </div>
+</body>
+</html>
